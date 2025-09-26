@@ -24,12 +24,13 @@ public class EchoClient {
 
             /* reading information from console, and sending to the Server*/
             String consoleInput;
-            System.out.print("Type in a String to be echoed by the server.");
+            System.out.println("Type in a String to be echoed by the server.");
+            System.out.print("Message: ");
             while((consoleInput=consoleInputStream.readLine())!=null){                //Read the inputed line from console
-                System.out.println("Message: ");
                 out.println(consoleInput);                                            //Transferring line by line to the Server
                 out.flush();
                 System.out.println("echo :"+ in.readLine());                          // Printing the data goten from the Server (should be the Server Sent)
+                System.out.print("Message: ");
             }
 
 
