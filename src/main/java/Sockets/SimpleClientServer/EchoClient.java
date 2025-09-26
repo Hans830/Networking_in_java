@@ -29,7 +29,7 @@ public class EchoClient {
                 System.out.println("Message: ");
                 out.println(consoleInput);                                            //Transferring line by line to the Server
                 out.flush();
-                System.out.println("echo :"+ in.readLine());                          // Printing the data goten from the Server (should be the Server Sent)
+                System.out.println("echo: "+ in.readLine());                          // Printing the data goten from the Server (should be the Server Sent)
             }
 
 
