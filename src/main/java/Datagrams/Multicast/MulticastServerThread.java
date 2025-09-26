@@ -26,22 +26,30 @@ public class MulticastServerThread extends QuoteServerThread {
 
         while(moreQuotes){
             try{
-                byte[] byteData=new byte[256];//container of the Data to be casted
+                byte[] byteData=new byte[256];//container of the Data to be cast
 
                 String castedString=null;
 
                 if(in==null){//if the file didn't open up
-                    castedString=new Date().toString();
+                    byteData=new Date().toString().getBytes();
                 }
                 else{
-                    castedString=getNextQuote();
+                    //castedString=getNextQuote();//The nex
+                    byteData=getNextQuote().getBytes();
                 }
 
-                byteData=castedString.getBytes();
+                //byteData=castedString.getBytes();
+                /* For a multi data cast, the Server has to know where to send the packets, in other words where the Clients
+                will be listening from. All Clients must be listening from the same network or group through a particular port
+                 */
 
-                InetAddress address = InetAddress.getByName("localhost");//address to the Client the server wants to send to
+                InetAddress clientsAddress = InetAddress.getByName("192.168.1.1");//address to the Client the server wants to send to
                 DatagramPacket packet;//the packet which contains the data to be sent
-                packet=new DatagramPacket(byteData,byteData.length, InetAddress.getByName("localhost"), 4446);
+
+                /*The packet to be sent is created and bound to the address and port it is destined for
+
+                 */
+                packet=new DatagramPacket(byteData,byteData.length, clientsAddress , 4446);
                 socket.send(packet);
                 try {
                     sleep((long)(Math.random()*5000));
