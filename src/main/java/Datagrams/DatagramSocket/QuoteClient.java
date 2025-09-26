@@ -9,7 +9,7 @@ public class QuoteClient {
 
 
     public static void main(String[] args) throws IOException {
-        String nameOfHost="localhost";
+        String nameOfHost="192.168.1.2";
 
         DatagramSocket socket=new DatagramSocket();//Creates a DatagramSocket which is bound to any available port on the
 
