@@ -43,6 +43,7 @@ public class MulticastServerThread extends QuoteServerThread {
                 will be listening from. All Clients must be listening from the same network or group through a particular port
                  */
 
+                System.out.println("Connecting to Client group");
                 InetAddress clientGroupAdress = InetAddress.getByName("239.0.0.1");//address to the Client the server wants to send to
                 DatagramPacket packet;//the packet which contains the data to be sent
 
@@ -50,7 +51,10 @@ public class MulticastServerThread extends QuoteServerThread {
 
                  */
                 packet=new DatagramPacket(byteData,byteData.length, clientGroupAdress , 4446);
+                System.out.println("Sending Datagrampacket");
                 socket.send(packet);
+                System.out.println("Datagrampacket sent");
+
                 try {
                     sleep((long)(Math.random()*5000));
                 }catch(InterruptedException ie){
