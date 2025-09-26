@@ -12,7 +12,7 @@ public class MulticastClient {
 
 
         MulticastSocket clientSocket=new MulticastSocket(4446);
-        InetAddress group=InetAddress.getByName("WORKGROUP");
+        InetAddress group=InetAddress.getByName("239.0.0.1");
         clientSocket.joinGroup(group);
 
         DatagramPacket packet;

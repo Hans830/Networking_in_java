@@ -43,13 +43,13 @@ public class MulticastServerThread extends QuoteServerThread {
                 will be listening from. All Clients must be listening from the same network or group through a particular port
                  */
 
-                InetAddress clientsAddress = InetAddress.getByName("192.168.1.1");//address to the Client the server wants to send to
+                InetAddress clientGroupAdress = InetAddress.getByName("239.0.0.1");//address to the Client the server wants to send to
                 DatagramPacket packet;//the packet which contains the data to be sent
 
                 /*The packet to be sent is created and bound to the address and port it is destined for
 
                  */
-                packet=new DatagramPacket(byteData,byteData.length, clientsAddress , 4446);
+                packet=new DatagramPacket(byteData,byteData.length, clientGroupAdress , 4446);
                 socket.send(packet);
                 try {
                     sleep((long)(Math.random()*5000));
