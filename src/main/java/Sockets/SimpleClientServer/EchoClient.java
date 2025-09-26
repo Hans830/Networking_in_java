@@ -15,7 +15,7 @@ public class EchoClient {
 
         //String textToBeEchoed= "this text was sent by the Client";
         System.out.println("Connecting to Server...");
-        try (Socket clientSocket=new Socket("192.168.1.1",5555);//initialize the client's socket
+        try (Socket clientSocket=new Socket("192.168.1.2",5555);//initialize the client's socket
              PrintWriter out=new PrintWriter(clientSocket.getOutputStream());//Parameterizing the client's socket's output stream
              BufferedReader in=new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));// Parameterizing the client's socket's input stream
              BufferedReader consoleInputStream=new BufferedReader(new InputStreamReader(System.in))// Parameterizing the user's input into the console
@@ -24,8 +24,9 @@ public class EchoClient {
 
             /* reading information from console, and sending to the Server*/
             String consoleInput;
-            System.out.print("Type in a String to be echoed by the server: ");
+            System.out.print("Type in a String to be echoed by the server.");
             while((consoleInput=consoleInputStream.readLine())!=null){                //Read the inputed line from console
+                System.out.println("Message: ");
                 out.println(consoleInput);                                            //Transferring line by line to the Server
                 out.flush();
                 System.out.println("echo :"+ in.readLine());                          // Printing the data goten from the Server (should be the Server Sent)
