@@ -11,13 +11,13 @@ public class KnockKnockClient {
 
     public static void main(String[] args) {
 
-
-        try (Socket kkClientSocket = new Socket("localhost", 4444);
+        System.out.println("Connecting to server...");
+        try (Socket kkClientSocket = new Socket("192.168.1.2", 4444);
              BufferedReader clientInput = new BufferedReader(new InputStreamReader(kkClientSocket.getInputStream()));
              PrintWriter clientOutput = new PrintWriter(new OutputStreamWriter(kkClientSocket.getOutputStream()), true);
              BufferedReader consoleStream=new BufferedReader(new InputStreamReader(System.in))) {
 
-            System.out.println("Connected to server:");
+            System.out.println("Connected to server.");
             String fromServer, usersMessage;
           //  ArrayList<String> toServer = new ArrayList<>(Arrays.asList("Who's there?", "Dexter who?", "Groan."));
 
