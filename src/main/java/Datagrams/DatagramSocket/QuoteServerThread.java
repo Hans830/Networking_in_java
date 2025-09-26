@@ -12,8 +12,8 @@ import java.util.Date;
 public class QuoteServerThread extends Thread {
 
     protected DatagramSocket socket = null;
-    protected BufferedReader in = null;
-    protected boolean moreQuotes = true;
+    protected BufferedReader in = null;//Bufferedreader for reading the quotes from the quotes file
+    protected boolean moreQuotes = true;//Determinant if there are still some quotes in the quotes file
 
     public QuoteServerThread() throws IOException {
         this("QuoteSever");
@@ -22,7 +22,7 @@ public class QuoteServerThread extends Thread {
     public QuoteServerThread(String name) throws IOException {
         super(name);
 
-        socket = new DatagramSocket(4445);
+        socket = new DatagramSocket(4445); //The server need to already beconnected to a port, so the package has a destination
 
         try {
             in = new BufferedReader(new FileReader("one-liners.txt"));
@@ -35,24 +35,38 @@ public class QuoteServerThread extends Thread {
     @Override
     public void run() {
         try {
-            byte[] buf = new byte[256];
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            socket.receive(packet);
 
-            String dString = null;
-            if(in == null){
+            System.out.println("Waiting for package from Client...");
+
+            byte[] buf = new byte[256];
+            DatagramPacket packet = new DatagramPacket(buf, buf.length);//An empty packet is created to recieve the Data from the Client
+            socket.receive(packet);//The packet is being recieved from the client
+
+            System.out.println("Package from client recieved");
+
+            String dString ;
+            if(in == null){//If the input string is empty meaning the file was not read/found
                 dString = new Date().toString();
             }
             else{
-                dString = getNextQuote();
+                dString = getNextQuote();//Getting the next quote from the file
             }
 
-            buf=dString.getBytes();
+            buf=dString.getBytes();//Storing that quote in the byte array
 
-            InetAddress address = packet.getAddress();
-            int port = packet.getPort();
-            packet=new DatagramPacket(buf, buf.length, address, port);
-            socket.send(packet);
+            InetAddress address = packet.getAddress();//Getting the address of the client's computer
+            int port = packet.getPort();// Getting its transmission port
+
+            //packet=new DatagramPacket(buf, buf.length, address, port);//Creating a new package to send, including the location of the Client
+
+            //One can either make new package or reset the values of the old package
+            packet.setData(buf);
+            packet.setLength(buf.length);
+            packet.setAddress(address);
+            packet.setPort(port);
+
+
+            socket.send(packet);// Sending the package
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
