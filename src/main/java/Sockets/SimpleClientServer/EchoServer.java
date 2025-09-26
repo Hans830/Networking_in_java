@@ -12,17 +12,20 @@ public class EchoServer {
 
     public static void main(String[] args) {
 
+        System.out.println("Waiting for Client...");
         try (ServerSocket serverSocket=new ServerSocket(5555);//initialize the client's socket
              Socket clientSocket=serverSocket.accept();
              PrintWriter out=new PrintWriter(clientSocket.getOutputStream());//Parameterizing the client's socket's output stream
              BufferedReader in=new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));// Parameterizing the client's socket's input stream
             // BufferedReader consoleInputStream=new BufferedReader(new InputStreamReader(System.in))// Parameterizing the user's input into the console
         ){
+            System.out.println("Connected to client.");
 
             /* reading information from client, and sending to the Server*/
             String clientInput;
             while((clientInput=in.readLine())!=null){                //Read the inputed line from console
-                System.out.println(clientInput);
+
+                System.out.println("Message from client:" +clientInput);
                 out.println(clientInput);                                            //Transferring line by line to the Server
                 out.flush();
                // System.out.println("echo :"+ in.readLine());                          // Printing the data goten from the Server (should be the Server Sent)

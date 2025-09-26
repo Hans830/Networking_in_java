@@ -13,7 +13,9 @@ public class EchoClient {
 
     public static void main(String[] args) {
 
-        String textToBeEchoed= "this text was sent by the Client";
+        //String textToBeEchoed= "this text was sent by the Client";
+
+
 
         try (Socket clientSocket=new Socket("192.168.1.2",5555);//initialize the client's socket
              PrintWriter out=new PrintWriter(clientSocket.getOutputStream());//Parameterizing the client's socket's output stream
